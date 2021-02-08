@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Soldier : MonoBehaviour
 {
-    Animator anim = null;
+    protected Animator anim = null;
     [HideInInspector]
     public int range = 1;
     [HideInInspector]
     public int size  = 1;
-    int speed = 8;
-    bool sprint = false;
-    Vector3 sprintPos;
+    protected int speed = 8;
+    protected bool sprint = false;
+    protected Vector3 sprintPos;
 
     // Terrain
     [SerializeField]
@@ -20,13 +20,13 @@ public class Soldier : MonoBehaviour
     public int currentInsidePos;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (sprint)
         {
@@ -39,22 +39,18 @@ public class Soldier : MonoBehaviour
                 transform.position = sprintPos;
                 sprint = false;
                 anim.SetBool("sprint", sprint);
+
+                transform.position = new Vector3(transform.position.x, 0, transform.position.z);
             }
         }
     }
 
-    void OnMouseOver()
-    {
-        if(Input.GetMouseButtonDown(0))
-            SelectThisSoldier();
-    }
-
-    public void SelectThisSoldier()
+    public virtual void SelectThisSoldier()
     {
         GameController.Instance.selectedSoldier = this;
     }
 
-    public void MoveTo(Transform tr)
+    public virtual void MoveTo(Transform tr)
     {
         sprint = true;
         sprintPos = tr.position;

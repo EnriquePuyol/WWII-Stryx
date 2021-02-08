@@ -6,10 +6,12 @@ public class Terrains : MonoBehaviour
 {
     public Transform[] neighbours;
     public Transform[] insidePositions;
+    [SerializeField]
     bool[] areOccupiedPositions = {false, false, false};
 
     [HideInInspector]
     public int defense = 0;
+    [SerializeField]
     int currentSize = 0;
     int maxSize = 3;
 
